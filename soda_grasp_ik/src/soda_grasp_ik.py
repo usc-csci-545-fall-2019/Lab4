@@ -205,10 +205,6 @@ def main(if_sim):
     raw_input("Press ENTER to start RRT planning...")
     trajectory = None
     for configuration in configurations:
-        # Aikido path planner
-        # trajectory = ada.plan_to_configuration(
-        #     arm_state_space, arm_skeleton, configuration)
-
         # Your AdaRRT planner
         ### FILL in your code here
 

@@ -195,15 +195,19 @@ def main():
 
     # launch viewer
     viewer = ada.start_viewer("dart_markers/simple_trajectories", "map")
+    world = ada.get_world()
 
     # add objects to world
-    canURDFUri = "package://pr_assets/data/objects/can.urdf"
-    sodaCanPose = [0.25, -0.35, 0.0, 0, 0, 0, 1]
+    soda_pose = np.eye(4)
+    soda_pose[0, 3] = 0.25
+    soda_pose[1, 3] = -0.35
+    sodaURDFUri = "package://pr_assets/data/objects/can.urdf"
+    can = world.add_body_from_urdf_matrix(sodaURDFUri, soda_pose)
+
     tableURDFUri = "package://pr_assets/data/furniture/uw_demo_table.urdf"
-    tablePose = [0.3, 0.0, -0.7, 0.707107, 0, 0, 0.707107]
-    world = ada.get_world()
-    can = world.add_body_from_urdf(canURDFUri, sodaCanPose)
-    table = world.add_body_from_urdf(tableURDFUri, tablePose)
+    # x, y, z, rw, rx, ry, rz
+    table_pose = [0.3, 0.0, -0.75, 0.707107, 0., 0., 0.707107]
+    table = world.add_body_from_urdf(tableURDFUri, table_pose)
 
     # add collision constraints
     collision_free_constraint = ada.set_up_collision_detection(
